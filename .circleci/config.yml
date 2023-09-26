@@ -8,6 +8,10 @@ jobs:
     steps:
       - checkout  # Checkout the code from your GitHub repository
 
+      - run:
+          name: Install SCP
+          command: apt-get update && apt-get install -y openssh-client
+
       # No additional build or processing steps are needed for a simple HTML/CSS project.
 
       - run:
