@@ -22,7 +22,7 @@ jobs:
             chmod 600 ~/.ssh/id_rsa
 
             # Copy your HTML/CSS project to AWS server using SCP
-            scp -r . ubuntu@3.142.142.22:/var/www/html/
+            scp -o StrictHostKeyChecking=no -r . ubuntu@3.142.142.22:/var/www/html/
 
 workflows:
   version: 2
