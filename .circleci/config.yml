@@ -1,0 +1,31 @@
+version: 2.1
+
+jobs:
+  build_and_deploy:
+    docker:
+      - image: nginx:latest  # Use the latest Nginx image to serve the HTML/CSS project
+
+    steps:
+      - checkout  # Checkout the code from your GitHub repository
+
+      # No additional build or processing steps are needed for a simple HTML/CSS project.
+
+      - run:
+          name: Deploy to AWS
+          command: |
+            # Set up SSH key for authentication
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+
+            # Copy your HTML/CSS project to AWS server using SCP
+            scp -r . ubuntu@3.142.142.22:/var/www/html/
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build_and_deploy:
+          filters:
+            branches:
+              only:
+                - main  # Adjust this to your main branch name
